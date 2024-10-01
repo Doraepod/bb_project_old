@@ -80,7 +80,10 @@ class Gamepad(object):
             evdev.ff.Replay(duration_ms, 0),
             effect_type
         )
-        self.effect_id = self.device.upload_effect(effect)
+        try:
+            self.effect_id = self.device.upload_effect(effect)
+        except Exception:
+            print("Vibration write error")
 
     def vibrate(self):
         """

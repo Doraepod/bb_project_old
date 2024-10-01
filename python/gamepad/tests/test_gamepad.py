@@ -1,4 +1,7 @@
 import time
+import sys
+import os
+sys.path.insert(1, '../')
 import logging
 from src.xbox_one import Gamepad, GamepadButtons, GamepadAxis
 logging.basicConfig(
@@ -22,9 +25,13 @@ def main():
     while not dev.read_button(GamepadButtons.B.value):
         dev.update_buttons()
         if dev.read_button(GamepadButtons.RIGHT_ARROW.value):
+            print('Right')
             dev.vibrate()
         if dev.read_button(GamepadButtons.A.value):
             print('A')
+        if dev.read_button(GamepadButtons.MAIN.value):
+            os.system("sudo shutdown now")
+            print('Main')
         time.sleep(0.05)
 
 
