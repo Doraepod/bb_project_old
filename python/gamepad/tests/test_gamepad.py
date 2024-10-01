@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def main():
-    for _ in range(5):
+    for _ in range(50):
         dev = Gamepad()
         if dev.name is None:
             logger.debug("Check the gamepad")

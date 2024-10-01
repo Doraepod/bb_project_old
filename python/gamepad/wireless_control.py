@@ -1,6 +1,7 @@
 import logging
 import asyncio
 import time
+import os
 
 import serial
 import struct
@@ -98,6 +99,7 @@ async def robot_control(dev, csv_logger, event):
         csv_logger.stop()
         # Close out when done
         if dev is not None:
+            dev.vibrate()
             dev.close()
             logger.debug("Gamepad is closed successfully")
         if port is not None:
@@ -105,9 +107,10 @@ async def robot_control(dev, csv_logger, event):
             logger.debug("Serial port is closed successfully")
         # Stop other asyncio loops
         event.set()
+        os.system("sudo shutdown now")
 
 
-async def log(csv_logger, event):
+def log(csv_logger, event):
     while not event.is_set():
         csv_logger.flush()
         await asyncio.sleep(5)
@@ -115,7 +118,7 @@ async def log(csv_logger, event):
 
 def main():
     dev = None
-    for _ in range(5):
+    for _ in range(50):
         try:
             dev = Gamepad()
             break

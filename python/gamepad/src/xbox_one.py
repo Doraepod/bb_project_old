@@ -66,6 +66,7 @@ class Gamepad(object):
             self.key_states[i.name]['value'] = False
             self.key_states[i.name]['status'] = False
         self._setup_vibration()
+        self.vibrate()
 
     def _setup_vibration(self, duration=500):
         """
